@@ -1,0 +1,25 @@
+{
+  "name": "netbootxyz",
+  "longDescription": "<p><a href=https://netboot.xyz>netboot.xyz</a> lets you <a href=https://en.wikipedia.org/wiki/Preboot_Execution_Environment>PXE</a> boot various operating system installers or utilities from a single tool over the network. This lets you use one media for many types of operating systems or tools. The <a href=https://ipxe.org/>iPXE</a> project is used to provide a user friendly menu from within the BIOS that lets you easily choose the operating system you want along with any specific types of versions or bootable flags.</p>",
+  "description": "netboot.xyz lets you PXE boot various operating system installers or utilities from a single tool over the network. This lets you use one media for many types of operating systems or tools. The iPXE project is used to provide a user friendly menu from within the BIOS that lets you easily choose the operating system you want along with any specific types of versions or bootable flags.",
+  "tags": [
+    "netboot.xyz",
+    "PXE",
+    "operating system installers",
+    "utilities",
+    "network boot",
+    "single tool",
+    "iPXE",
+    "user friendly menu",
+    "BIOS",
+    "choose operating system",
+    "specific versions",
+    "bootable flags"
+  ],
+  "repository": "https://github.com/netbootxyz/docker-netbootxyz",
+  "image": "ghcr.io/netbootxyz/netbootxyz:latest",
+  "supported_architectures": [
+    "amd64",
+    "arm64"
+  ]
+}

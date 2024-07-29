@@ -1,0 +1,75 @@
+{
+    "cosmos-installer": {
+        "form": [
+            {
+                "name": "assetsPath",
+                "label": "Where should netboot.xyz store its assets?",
+                "initialValue": "{DefaultDataPath}/netbootxyz/assets",
+                "type": "text"
+            },
+            {
+                "name": "adminOnly",
+                "label": "Do you want to make this service admin only?",
+                "initialValue": false,
+                "type": "checkbox"
+            }
+        ],
+        "post-install": [
+            {
+                "type": "success",
+                "label": "netboot.xyz is now installed and running. You can access it at {Hostnames.{StaticServiceName}.{StaticServiceName}.host}."
+            }
+        ]
+    },
+    "minVersion": "0.7.6",
+    "services": {
+        "{ServiceName}": {
+            "image": "ghcr.io/netbootxyz/netbootxyz",
+            "container_name": "{ServiceName}",
+            "restart": "unless-stopped",
+            "environment": [
+                "MENU_VERSION=2.0.47",
+                "NGINX_PORT=80",
+                "WEB_APP_PORT=3000"
+            ],
+            "labels": {
+                "cosmos-persistent-env": "MENU_VERSION, NGINX_PORT, WEB_APP_PORT",
+                "cosmos-force-network-secured": "true",
+                "cosmos-auto-update": "true",
+                "cosmos-icon": "https://example.com/netbootxyz/icon.png",
+                "cosmos-stack": "{ServiceName}",
+                "cosmos-stack-main": "{ServiceName}"
+            },
+            "volumes": [
+                {
+                    "source": "{ServiceName}-config",
+                    "target": "/config",
+                    "type": "volume"
+                },
+                {
+                    "source": "{Context.assetsPath}",
+                    "target": "/assets",
+                    "type": "bind"
+                }
+            ],
+            "routes": [
+                {
+                    "name": "{ServiceName}",
+                    "description": "Expose {ServiceName} to the web",
+                    "useHost": true,
+                    "target": "http://{ServiceName}:3000",
+                    "mode": "SERVAPP",
+                    "Timeout": 14400000,
+                    "ThrottlePerMinute": 12000,
+                    "BlockCommonBots": true,
+                    "SmartShield": {
+                        "Enabled": true
+                    }
+                    {if Context.adminOnly}
+                    , "AuthAdmin": true
+                    {/if}
+                }
+            ]
+        }
+    }
+}
